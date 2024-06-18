@@ -1,2 +1,2 @@
 # You'll probably need to adapt the following line to match your system!
-blender --background --python test.py
+/Applications/Blender.app/Contents/MacOS/Blender --background --python test.py
