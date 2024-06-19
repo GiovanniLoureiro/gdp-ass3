@@ -14,7 +14,7 @@ from assignment3.matrices.util import numpy_verts
 def laplace_smooth(mesh: bmesh.types.BMesh, lambda_factor: float = 0.1) -> np.ndarray:
     # Triangulate the mesh
     bmesh.ops.triangulate(mesh, faces=mesh.faces)
-    
+
     verts = numpy_verts(mesh)
     G = build_gradient_matrix(mesh)
     M, Mv = build_mass_matrices(mesh)
@@ -30,7 +30,6 @@ def laplace_smooth(mesh: bmesh.types.BMesh, lambda_factor: float = 0.1) -> np.nd
     new_verts = spsolve(A, b)
 
     return new_verts
-
 
 
 class MESH_OT_LaplaceSmooth(bpy.types.Operator):
@@ -64,12 +63,13 @@ class MESH_OT_LaplaceSmooth(bpy.types.Operator):
 
         return {"FINISHED"}
 
+
 class MESH_PT_LaplaceSmoothPanel(bpy.types.Panel):
     bl_label = "Laplace Smooth"
     bl_idname = "MESH_PT_laplace_smooth"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
-    bl_category = "Tools"
+    bl_category = "Task 3: Extension"
 
     def draw(self, context):
         layout = self.layout
@@ -78,6 +78,7 @@ class MESH_PT_LaplaceSmoothPanel(bpy.types.Panel):
         operator = col.operator("mesh.laplace_smooth", text="Apply Laplace Smooth")
         col.prop(context.scene, "lambda_factor")
         operator.lambda_factor = context.scene.lambda_factor
+
 
 def register():
     bpy.utils.register_class(MESH_OT_LaplaceSmooth)
